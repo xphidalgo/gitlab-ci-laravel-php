@@ -24,6 +24,7 @@ RUN rm /etc/apt/preferences.d/no-debian-php && \
         git \
         libxml2-dev \
         php-soap \
+        postgresql-dev \
     && apt-get clean \
     && rm -r /var/lib/apt/lists/*
 
