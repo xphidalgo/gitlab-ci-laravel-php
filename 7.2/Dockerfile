@@ -25,7 +25,7 @@ RUN rm /etc/apt/preferences.d/no-debian-php && \
         libxml2-dev \
         php-soap \
         libpq-dev \
-        postgresql-client-9.6 \
+        postgresql-client \
     && apt-get clean \
     && rm -r /var/lib/apt/lists/*
 
