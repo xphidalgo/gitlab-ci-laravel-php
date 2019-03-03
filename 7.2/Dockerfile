@@ -18,7 +18,7 @@ RUN apt-get update && \
         mysql-client \
         gnupg \
         git \
-        php-soap \
+        php7.2-soap \
     && apt-get clean \
     && rm -r /var/lib/apt/lists/*
 
