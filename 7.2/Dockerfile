@@ -1,5 +1,7 @@
+# Based on the work of:
+# Mr. Krzysztof Kawalec <kf.kawalec@gmail.com> (https://github.com/kfkawalec/gitlab-ci-laravel-php)
 FROM php:7.2
-MAINTAINER Krzysztof Kawalec <kf.kawalec@gmail.com>
+MAINTAINER Pedro Hidalgo <xphidalgo@gmail.com>
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
         openssh-client \
@@ -18,7 +20,8 @@ RUN apt-get update && \
         mysql-client \
         gnupg \
         git \
-        php7.2-soap \
+        libxml2-dev \
+        php-soap \
     && apt-get clean \
     && rm -r /var/lib/apt/lists/*
 
