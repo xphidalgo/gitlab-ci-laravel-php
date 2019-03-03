@@ -2,7 +2,9 @@
 # Mr. Krzysztof Kawalec <kf.kawalec@gmail.com> (https://github.com/kfkawalec/gitlab-ci-laravel-php)
 FROM php:7.2
 MAINTAINER Pedro Hidalgo <xphidalgo@gmail.com>
-RUN apt-get update && \
+
+RUN rm /etc/apt/preferences.d/no-debian-php && \
+    apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
         openssh-client \
         libfreetype6-dev \
