@@ -24,7 +24,7 @@ RUN rm /etc/apt/preferences.d/no-debian-php && \
         git \
         libxml2-dev \
         php-soap \
-        postgresql-dev \
+        libpq-dev \
     && apt-get clean \
     && rm -r /var/lib/apt/lists/*
 
@@ -39,13 +39,12 @@ RUN docker-php-ext-install \
         zip \
         opcache \
         soap \
-        pgsql \
-        pdo \
-        pdo_pgsql \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install gd \
     && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
     && docker-php-ext-install ldap \
+    && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
+    && docker-php-ext-install pdo pdo_pgsql pgsql \
     && docker-php-ext-configure intl \
     && docker-php-ext-install intl \
     && docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
