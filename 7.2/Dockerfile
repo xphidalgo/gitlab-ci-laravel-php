@@ -28,6 +28,7 @@ RUN rm /etc/apt/preferences.d/no-debian-php && \
         python \
         python-pip \
         gettext-base \
+    && pip install --upgrade setuptools \
     && pip install awsebcli \
     && apt-get clean \
     && rm -r /var/lib/apt/lists/*
