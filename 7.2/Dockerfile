@@ -27,6 +27,7 @@ RUN rm /etc/apt/preferences.d/no-debian-php && \
         libpq-dev \
         python \
         python-pip \
+        gettext-base \
     && pip install awsebcli \
     && apt-get clean \
     && rm -r /var/lib/apt/lists/*
