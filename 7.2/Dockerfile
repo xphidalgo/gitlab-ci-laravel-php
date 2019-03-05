@@ -31,6 +31,7 @@ RUN rm /etc/apt/preferences.d/no-debian-php && \
     && apt-get clean \
     && rm -r /var/lib/apt/lists/*
 
+# PIP packages
 RUN pip install setuptools && pip install wheel && pip install awsebcli
 
 # PHP Extensions
@@ -83,17 +84,17 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 	composer selfupdate
     
 # Goto temporary directory.
-WORKDIR /tmp
+#WORKDIR /tmp
 
 # Run composer and phpunit installation.
-RUN composer require "phpunit/phpunit=5.*" --prefer-source --no-interaction && \
-    ln -s /tmp/vendor/bin/phpunit /usr/local/bin/phpunit
+#RUN composer require "phpunit/phpunit=5.*" --prefer-source --no-interaction && \
+#    ln -s /tmp/vendor/bin/phpunit /usr/local/bin/phpunit
 
 # Run composer and codesniffer installation.
-RUN composer require "squizlabs/php_codesniffer=*" --prefer-source --no-interaction && \
-    ln -s /tmp/vendor/bin/phpcs /usr/local/bin/phpcs
+#RUN composer require "squizlabs/php_codesniffer=*" --prefer-source --no-interaction && \
+#    ln -s /tmp/vendor/bin/phpcs /usr/local/bin/phpcs
 
 RUN php --version
 RUN composer --version
 RUN phpunit --version
-RUN phpcs --version
+#RUN phpcs --version
