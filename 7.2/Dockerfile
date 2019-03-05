@@ -96,5 +96,5 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 RUN php --version
 RUN composer --version
-RUN phpunit --version
+#RUN phpunit --version
 #RUN phpcs --version
