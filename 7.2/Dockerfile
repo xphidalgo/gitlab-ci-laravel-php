@@ -25,8 +25,12 @@ RUN rm /etc/apt/preferences.d/no-debian-php && \
         libxml2-dev \
         php-soap \
         libpq-dev \
+        python \
+        python-pip \
+    && pip install awsebcli \
     && apt-get clean \
     && rm -r /var/lib/apt/lists/*
+
 
 # PHP Extensions
 RUN docker-php-ext-install \
