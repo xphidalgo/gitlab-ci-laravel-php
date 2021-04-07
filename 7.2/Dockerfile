@@ -27,6 +27,7 @@ RUN rm /etc/apt/preferences.d/no-debian-php && \
         python3 \
         python3-pip \
         gettext-base \
+        libzip-dev \
     && apt-get clean \
     && rm -r /var/lib/apt/lists/*
 
