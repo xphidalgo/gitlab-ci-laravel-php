@@ -1,6 +1,6 @@
 # Based on the work of:
 # Mr. Krzysztof Kawalec <kf.kawalec@gmail.com> (https://github.com/kfkawalec/gitlab-ci-laravel-php)
-FROM php:7.2
+FROM php:7.3
 MAINTAINER Pedro Hidalgo <xphidalgo@gmail.com>
 
 RUN rm /etc/apt/preferences.d/no-debian-php && \
