@@ -34,7 +34,7 @@ RUN rm /etc/apt/preferences.d/no-debian-php && \
 RUN python3 -m pip install -U pip
 
 # PIP packages
-RUN pip3 install setuptools && pip3 install wheel && pip3 install awsebcli
+RUN pip3 install setuptools && pip3 install wheel && pip3 install awsebcli && pip3 install awscli
 
 # PHP Extensions
 RUN docker-php-ext-install \
@@ -82,7 +82,7 @@ ENV COMPOSER_HOME /root/composer
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
-	composer selfupdate
+	composer selfupdate --1
     
 # Goto temporary directory.
 #WORKDIR /tmp
