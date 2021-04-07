@@ -3,7 +3,6 @@
 FROM php:7.3
 MAINTAINER Pedro Hidalgo <xphidalgo@gmail.com>
 
-
 RUN rm /etc/apt/preferences.d/no-debian-php && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
@@ -20,7 +19,6 @@ RUN rm /etc/apt/preferences.d/no-debian-php && \
         libmagickwand-dev --no-install-recommends \
         curl \
         libtidy* \
-        mysql-client \
         gnupg \
         git \
         libxml2-dev \
@@ -40,7 +38,6 @@ RUN docker-php-ext-install \
         mbstring \
         curl \
         json \
-        pdo_mysql \
         exif \
         tidy \
         zip \
