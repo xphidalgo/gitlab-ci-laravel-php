@@ -1,6 +1,10 @@
+# Based on the work of:
+# Mr. Krzysztof Kawalec <kf.kawalec@gmail.com> (https://github.com/kfkawalec/gitlab-ci-laravel-php)
 FROM php:7.3
-MAINTAINER Krzysztof Kawalec <kf.kawalec@gmail.com>
-RUN apt-get update && \
+MAINTAINER Pedro Hidalgo <xphidalgo@gmail.com>
+
+RUN rm /etc/apt/preferences.d/no-debian-php && \
+    apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
         openssh-client \
         libfreetype6-dev \
@@ -15,13 +19,20 @@ RUN apt-get update && \
         libmagickwand-dev --no-install-recommends \
         curl \
         libtidy* \
-        libzip-dev \
         mysql-client \
         gnupg \
         git \
-        rsync \
+        libxml2-dev \
+        php-soap \
+        libpq-dev \
+        python \
+        python-pip \
+        gettext-base \
     && apt-get clean \
     && rm -r /var/lib/apt/lists/*
+
+# PIP packages
+RUN pip install setuptools && pip install wheel && pip install awsebcli
 
 # PHP Extensions
 RUN docker-php-ext-install \
@@ -33,28 +44,28 @@ RUN docker-php-ext-install \
         tidy \
         zip \
         opcache \
+        soap \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install gd \
     && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
     && docker-php-ext-install ldap \
+    && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
+    && docker-php-ext-install pdo pdo_pgsql pgsql \
     && docker-php-ext-configure intl \
     && docker-php-ext-install intl \
     && docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
     && docker-php-ext-install imap \
-    && docker-php-ext-install bcmath \
     && pecl install imagick \
     && docker-php-ext-enable imagick
 
-# NodeJS
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
-    && apt-get install -y nodejs \
-    && apt-get clean
+# Xdebug
+RUN pecl install -o -f xdebug \ 
+    && rm -rf /tmp/* \ 
+    && docker-php-ext-enable xdebug 
 
-# Yarn
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
-    && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
-    && apt-get update \
-    && apt-get install yarn \
+# NodeJS
+RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
+    && apt-get install -y nodejs \
     && apt-get clean
   
 # Memory Limit
@@ -70,21 +81,20 @@ ENV COMPOSER_HOME /root/composer
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
-	composer selfupdate
+    composer selfupdate
     
 # Goto temporary directory.
-WORKDIR /tmp
+#WORKDIR /tmp
 
 # Run composer and phpunit installation.
-RUN composer require "phpunit/phpunit=7.*" --prefer-source --no-interaction && \
-    ln -s /tmp/vendor/bin/phpunit /usr/local/bin/phpunit
+#RUN composer require "phpunit/phpunit=5.*" --prefer-source --no-interaction && \
+#    ln -s /tmp/vendor/bin/phpunit /usr/local/bin/phpunit
 
 # Run composer and codesniffer installation.
-RUN composer require "squizlabs/php_codesniffer=*" --prefer-source --no-interaction && \
-    ln -s /tmp/vendor/bin/phpcs /usr/local/bin/phpcs
+#RUN composer require "squizlabs/php_codesniffer=*" --prefer-source --no-interaction && \
+#    ln -s /tmp/vendor/bin/phpcs /usr/local/bin/phpcs
 
 RUN php --version
 RUN composer --version
-RUN phpunit --version
-RUN phpcs --version
-RUN yarn --version
+#RUN phpunit --version
+#RUN phpcs --version
