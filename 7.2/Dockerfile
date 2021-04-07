@@ -24,8 +24,8 @@ RUN rm /etc/apt/preferences.d/no-debian-php && \
         libxml2-dev \
         php-soap \
         libpq-dev \
-        python \
-        python-pip \
+        python3 \
+        python3-pip \
         gettext-base \
     && apt-get clean \
     && rm -r /var/lib/apt/lists/*
