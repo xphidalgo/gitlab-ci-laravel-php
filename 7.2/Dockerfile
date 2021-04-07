@@ -31,7 +31,7 @@ RUN rm /etc/apt/preferences.d/no-debian-php && \
     && rm -r /var/lib/apt/lists/*
 
 # PIP packages
-RUN pip install setuptools && pip install wheel && pip install awsebcli
+RUN pip3 install setuptools && pip3 install wheel && pip3 install awsebcli
 
 # PHP Extensions
 RUN docker-php-ext-install \
