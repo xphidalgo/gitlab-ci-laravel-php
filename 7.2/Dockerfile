@@ -30,6 +30,8 @@ RUN rm /etc/apt/preferences.d/no-debian-php && \
     && apt-get clean \
     && rm -r /var/lib/apt/lists/*
 
+RUN python3 -m pip3 install -U pip3
+
 # PIP packages
 RUN pip3 install setuptools && pip3 install wheel && pip3 install awsebcli
 
